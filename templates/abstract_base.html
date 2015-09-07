@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'html/include.html' %}
+    <title>
+        {% if title %}
+            {{ title }}
+        {% else %} }}
+            Microblog
+        {% endif %}
+    </title>
+</head>
+
+<body>
+
+    {% block hint %}{% endblock %}
+
+    {% block head %}{% endblock %}
+
+    {% block content %}{% endblock %}
+
+    {% block footer %}{% endblock %}
+
+</body>
+</html>

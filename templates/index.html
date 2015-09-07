@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+
+    {% include 'html/index/slider.html' %}
+    {% for i in range(0,20) %}
+        this is my index content<br>
+    {% endfor %}
+
+{% endblock %}

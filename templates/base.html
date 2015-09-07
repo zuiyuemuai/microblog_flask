@@ -1,0 +1,32 @@
+{% extends 'abstract_base.html' %}
+
+
+{% block head %}
+
+    {% include 'html/common/head_bg.html' %}
+    {% include 'html/common/head_btm.html' %}
+    {% include 'html/common/top_bg.html' %}
+
+{% endblock %}
+
+{% block hint %}
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <h1>hint:</h1>
+            <ul>
+            {% for message in messages %}
+                <li>{{ message }} </li>
+            {% endfor %}
+            </ul>
+            <br>
+        {% endif %}
+    {% endwith %}
+
+{% endblock %}
+
+{% block footer %}
+
+    {% include 'html/common/footer_bg.html' %}
+    {% include 'html/common/footer_bgl.html' %}
+{% endblock %}
