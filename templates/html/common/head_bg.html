@@ -6,7 +6,9 @@
                 </div>
                 <div class="social-icons">
                     <ul>
-                      <li><a href="#" target="_blank"></a></li>
+                        {% if g.user.is_authenticated() %}
+                            <li><a href="{{ url_for('logout') }}" target="_blank"></a></li>
+                        {% endif %}
                       <li><a href="#" target="_blank"></a></li>
                       <li><a href="#" target="_blank"></a></li>
                       <li><a href="#" target="_blank"></a></li>
