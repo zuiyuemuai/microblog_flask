@@ -9,7 +9,7 @@ from flask_login import login_user,login_required,current_user,logout_user
 
 @app.route('/', methods=['GET'])
 @app.route('/index', methods=['GET'])
-#@login_required
+@login_required
 def index():
     user = g.user
     posts = \
@@ -30,24 +30,25 @@ def index():
 @app.route('/login', methods=['GET','POST'])
 @oid.loginhandler
 def login():
-
+    print('here login')
     if g.user is not None and g.user.is_authenticated():
         return redirect(url_for('index'))
 
     form = LoginForm()
     if form.validate_on_submit():
-        flash('Login requested for OpenID="' + form.openid.data + '", remember_me=' + str(form.remember.data))
-        return redirect('/index')
-    return render_template('login.html', title='Login', form=form, provider=OPENID_PROVIDERS)
+        session['remember'] = form.remember.data
+        return oid.try_login(form.openid.data, ask_for=['email', 'nickname'])
+    return render_template('login.html', title='Login', form=form, provider=OPENID_PROVIDERS, error=oid.fetch_error())
 
 @oid.after_login
 def after_login(resp):
+    print('here after_login')
     if resp.email is None or resp.email == "":
         flash('Invaild login. Please try again')
         return redirect(url_for('login'))
     user = User.query.filter_by(email=resp.email).first()
     if user is None:
-        name = resp.name
+        name = resp.nickname
         if name is None or name == "":
             name = resp.email.split('@')[0]
         addUser(name, resp.email)
@@ -60,6 +61,7 @@ def after_login(resp):
 
 @lm.user_loader
 def load_user(id):
+    print 'load_user here'
     return User.query.get(int(id))
 
 

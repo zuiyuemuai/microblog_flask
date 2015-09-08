@@ -17,7 +17,7 @@ def addPost(body, user):
     db.session.commit()
     print('add Post:'+body+'-'+user.name)
 
-# addUser('john','john@email.com' )
+addUser('john','https://www.myopenid.com' )
 
 # u = User.query.get(1)
 # addPost('my first blog', u)
